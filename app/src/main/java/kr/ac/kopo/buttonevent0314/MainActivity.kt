@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 
@@ -13,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var btn911 : Button
     lateinit var btnGallery : Button
     lateinit var btnFin : Button
+    lateinit var btnListener : View.OnClickListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,20 +29,35 @@ class MainActivity : AppCompatActivity() {
         btn.setOnClickListener {
             Toast.makeText(applicationContext, "버튼을 클릭하셨군요?", Toast.LENGTH_SHORT).show()
         }
+        /*
         btnHome.setOnClickListener {
-            val mIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.kopo.ac.kr/jungsu/index.do"))
-            startActivity(mIntent)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.kopo.ac.kr/jungsu/index.do"))
+            startActivity(intent)
         }
         btn911.setOnClickListener {
-            val mIntent = Intent(Intent.ACTION_VIEW, Uri.parse("tel:/911"))
-            startActivity(mIntent)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("tel:/911"))
+            startActivity(intent)
         }
         btnGallery.setOnClickListener {
-            val mIntent = Intent(Intent.ACTION_VIEW, Uri.parse("content://media/internal/images/media"))
-            startActivity(mIntent)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("content://media/internal/images/media"))
+            startActivity(intent)
         }
+        */
         btnFin.setOnClickListener {
             finish()
         }
+
+        btnListener = View.OnClickListener {
+            when(it.id) {
+                R.id.buttonHome -> intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.kopo.ac.kr/jungsu/index.do"))
+                R.id.button911 -> intent = Intent(Intent.ACTION_VIEW, Uri.parse("tel:/911"))
+                R.id.buttonGallery -> intent = Intent(Intent.ACTION_VIEW, Uri.parse("content://media/internal/images/media"))
+            }
+            startActivity(intent)
+        }
+
+        btnHome.setOnClickListener(btnListener)
+        btn911.setOnClickListener(btnListener)
+        btnGallery.setOnClickListener(btnListener)
     }
 }
